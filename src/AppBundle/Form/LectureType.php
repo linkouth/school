@@ -13,8 +13,10 @@ class LectureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status')
-            ->add('students')->add('lecturer');
+        $builder
+            ->add('status')
+            ->add('students')
+            ->add('lecturer');
     }
     
     /**
@@ -23,7 +25,7 @@ class LectureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Lecture'
+            'data_class' => LectureType::class
         ));
     }
 

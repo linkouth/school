@@ -13,7 +13,10 @@ class SubjectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('countHours')->add('students')->add('lecturers');
+        $builder
+            ->add('countHours')
+            ->add('students')
+            ->add('lecturers');
     }
     
     /**
@@ -22,7 +25,7 @@ class SubjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Subject'
+            'data_class' => SubjectType::class
         ));
     }
 

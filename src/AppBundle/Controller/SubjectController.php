@@ -65,11 +65,11 @@ class SubjectController extends Controller
      */
     public function showAction(Subject $subject)
     {
-        $deleteForm = $this->createDeleteForm($subject);
+//        $deleteForm = $this->createDeleteForm($subject);
 
         return $this->render('subject/show.html.twig', array(
             'subject' => $subject,
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -81,7 +81,7 @@ class SubjectController extends Controller
      */
     public function editAction(Request $request, Subject $subject)
     {
-        $deleteForm = $this->createDeleteForm($subject);
+//        $deleteForm = $this->createDeleteForm($subject);
         $editForm = $this->createForm('AppBundle\Form\SubjectType', $subject);
         $editForm->handleRequest($request);
 
@@ -94,7 +94,7 @@ class SubjectController extends Controller
         return $this->render('subject/edit.html.twig', array(
             'subject' => $subject,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -102,35 +102,39 @@ class SubjectController extends Controller
      * Deletes a subject entity.
      *
      * @Route("/{id}", name="subject_delete")
-     * @Method("DELETE")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Subject $subject)
     {
-        $form = $this->createDeleteForm($subject);
-        $form->handleRequest($request);
+//        $form = $this->createDeleteForm($subject);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($subject);
+//            $em->flush();
+//        }
+//
+//        return $this->redirectToRoute('subject_index');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($subject);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('subject_index');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($subject);
+        $em->flush();
     }
 
-    /**
-     * Creates a form to delete a subject entity.
-     *
-     * @param Subject $subject The subject entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Subject $subject)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('subject_delete', array('id' => $subject->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
+//    /**
+//     * Creates a form to delete a subject entity.
+//     *
+//     * @param Subject $subject The subject entity
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm(Subject $subject)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('subject_delete', array('id' => $subject->getId())))
+//            ->setMethod('DELETE')
+//            ->getForm()
+//        ;
+//    }
 }

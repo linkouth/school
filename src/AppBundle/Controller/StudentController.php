@@ -69,7 +69,7 @@ class StudentController extends Controller
 
         return $this->render('student/show.html.twig', array(
             'student' => $student,
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -81,7 +81,7 @@ class StudentController extends Controller
      */
     public function editAction(Request $request, Student $student)
     {
-        $deleteForm = $this->createDeleteForm($student);
+//        $deleteForm = $this->createDeleteForm($student);
         $editForm = $this->createForm('AppBundle\Form\StudentType', $student);
         $editForm->handleRequest($request);
 
@@ -94,7 +94,7 @@ class StudentController extends Controller
         return $this->render('student/edit.html.twig', array(
             'student' => $student,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -102,35 +102,39 @@ class StudentController extends Controller
      * Deletes a student entity.
      *
      * @Route("/{id}", name="student_delete")
-     * @Method("DELETE")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Student $student)
     {
-        $form = $this->createDeleteForm($student);
-        $form->handleRequest($request);
+//        $form = $this->createDeleteForm($student);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($student);
+//            $em->flush();
+//        }
+//
+//        return $this->redirectToRoute('student_index');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
             $em->remove($student);
             $em->flush();
-        }
-
-        return $this->redirectToRoute('student_index');
     }
 
-    /**
-     * Creates a form to delete a student entity.
-     *
-     * @param Student $student The student entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Student $student)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('student_delete', array('id' => $student->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
+//    /**
+//     * Creates a form to delete a student entity.
+//     *
+//     * @param Student $student The student entity
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm(Student $student)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('student_delete', array('id' => $student->getId())))
+//            ->setMethod('DELETE')
+//            ->getForm()
+//        ;
+//    }
 }

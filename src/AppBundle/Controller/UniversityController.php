@@ -65,11 +65,11 @@ class UniversityController extends Controller
      */
     public function showAction(University $university)
     {
-        $deleteForm = $this->createDeleteForm($university);
+//        $deleteForm = $this->createDeleteForm($university);
 
         return $this->render('university/show.html.twig', array(
             'university' => $university,
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -81,7 +81,7 @@ class UniversityController extends Controller
      */
     public function editAction(Request $request, University $university)
     {
-        $deleteForm = $this->createDeleteForm($university);
+//        $deleteForm = $this->createDeleteForm($university);
         $editForm = $this->createForm('AppBundle\Form\UniversityType', $university);
         $editForm->handleRequest($request);
 
@@ -94,7 +94,7 @@ class UniversityController extends Controller
         return $this->render('university/edit.html.twig', array(
             'university' => $university,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -102,35 +102,39 @@ class UniversityController extends Controller
      * Deletes a university entity.
      *
      * @Route("/{id}", name="university_delete")
-     * @Method("DELETE")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, University $university)
     {
-        $form = $this->createDeleteForm($university);
-        $form->handleRequest($request);
+//        $form = $this->createDeleteForm($university);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($university);
+//            $em->flush();
+//        }
+//
+//        return $this->redirectToRoute('university_index');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($university);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('university_index');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($university);
+        $em->flush();
     }
 
-    /**
-     * Creates a form to delete a university entity.
-     *
-     * @param University $university The university entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(University $university)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('university_delete', array('id' => $university->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
+//    /**
+//     * Creates a form to delete a university entity.
+//     *
+//     * @param University $university The university entity
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm(University $university)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('university_delete', array('id' => $university->getId())))
+//            ->setMethod('DELETE')
+//            ->getForm()
+//        ;
+//    }
 }
