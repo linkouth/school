@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Employee;
+use AppBundle\Form\EmployeeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class EmployeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $employees = $em->getRepository('AppBundle:Employee')->findAll();
+        $employees = $em->getRepository(Employee::class)->findAll();
 
         return $this->render('employee/index.html.twig', array(
             'employees' => $employees,
@@ -40,7 +41,7 @@ class EmployeeController extends Controller
     public function newAction(Request $request)
     {
         $employee = new Employee();
-        $form = $this->createForm('AppBundle\Form\EmployeeType', $employee);
+        $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +83,7 @@ class EmployeeController extends Controller
     public function editAction(Request $request, Employee $employee)
     {
         //$deleteForm = $this->createDeleteForm($employee);
-        $editForm = $this->createForm('AppBundle\Form\EmployeeType', $employee);
+        $editForm = $this->createForm(EmployeeType::class, $employee);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

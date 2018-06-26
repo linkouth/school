@@ -14,9 +14,9 @@ class LectureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('status')
-            ->add('students')
-            ->add('lecturer');
+            ->add('status', null, array('label' => 'Status'))
+            ->add('students', null, array('label' => 'Students'))
+            ->add('lecturer', null, array('label' => 'Lecture'));
     }
     
     /**

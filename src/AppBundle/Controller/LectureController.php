@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lecture;
+use AppBundle\Form\LectureType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class LectureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $lectures = $em->getRepository('AppBundle:Lecture')->findAll();
+        $lectures = $em->getRepository(Lecture::class)->findAll();
 
         return $this->render('lecture/index.html.twig', array(
             'lectures' => $lectures,
@@ -40,7 +41,7 @@ class LectureController extends Controller
     public function newAction(Request $request)
     {
         $lecture = new Lecture();
-        $form = $this->createForm('AppBundle\Form\LectureType', $lecture);
+        $form = $this->createForm(LectureType::class, $lecture);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +83,7 @@ class LectureController extends Controller
     public function editAction(Request $request, Lecture $lecture)
     {
         //$deleteForm = $this->createDeleteForm($lecture);
-        $editForm = $this->createForm('AppBundle\Form\LectureType', $lecture);
+        $editForm = $this->createForm(LectureType::class, $lecture);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

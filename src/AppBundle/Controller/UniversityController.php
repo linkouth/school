@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\University;
+use AppBundle\Form\UniversityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class UniversityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $universities = $em->getRepository('AppBundle:University')->findAll();
+        $universities = $em->getRepository(University::class)->findAll();
 
         return $this->render('university/index.html.twig', array(
             'universities' => $universities,
@@ -40,7 +41,7 @@ class UniversityController extends Controller
     public function newAction(Request $request)
     {
         $university = new University();
-        $form = $this->createForm('AppBundle\Form\UniversityType', $university);
+        $form = $this->createForm(UniversityType::class, $university);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +83,7 @@ class UniversityController extends Controller
     public function editAction(Request $request, University $university)
     {
 //        $deleteForm = $this->createDeleteForm($university);
-        $editForm = $this->createForm('AppBundle\Form\UniversityType', $university);
+        $editForm = $this->createForm(UniversityType::class, $university);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

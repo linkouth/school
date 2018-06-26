@@ -15,8 +15,8 @@ class UniversityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('address');
+            ->add('name', null, array('label' => 'Name'))
+            ->add('address', null, array('label' => 'Address'));
     }
     
     /**

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Subject;
+use AppBundle\Form\SubjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class SubjectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $subjects = $em->getRepository('AppBundle:Subject')->findAll();
+        $subjects = $em->getRepository(Subject::class)->findAll();
 
         return $this->render('subject/index.html.twig', array(
             'subjects' => $subjects,
@@ -40,7 +41,7 @@ class SubjectController extends Controller
     public function newAction(Request $request)
     {
         $subject = new Subject();
-        $form = $this->createForm('AppBundle\Form\SubjectType', $subject);
+        $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +83,7 @@ class SubjectController extends Controller
     public function editAction(Request $request, Subject $subject)
     {
 //        $deleteForm = $this->createDeleteForm($subject);
-        $editForm = $this->createForm('AppBundle\Form\SubjectType', $subject);
+        $editForm = $this->createForm(SubjectType::class, $subject);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
